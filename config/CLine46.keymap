@@ -33,6 +33,24 @@
             bindings = <&to 0 &macro_param_1to1 &kp MACRO_PLACEHOLDER>;
             label = "TO_LAYER_0";
         };
+
+        // ()を入力してカーソルを内側に移動
+        macro_parentheses: macro_parentheses {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <40>;
+            tap-ms = <40>;
+            bindings = <&kp LPAR &kp RPAR &kp LEFT>;
+        };
+
+        // []を入力してカーソルを内側に移動
+        macro_brackets: macro_brackets {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <40>;
+            tap-ms = <40>;
+            bindings = <&kp LBKT &kp RBKT &kp LEFT>;
+        };
     };
 
     behaviors {
@@ -45,13 +63,72 @@
             tapping-term-ms = <200>;
         };
 
-        // タップダンス追加
-        td_custom: tap_dance_custom {
+        // 長押し：何もしない / 短押し：指定キー
+        td_no_hold: td_no_hold {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;
+            flavor = "tap-preferred";
+            bindings = <&none>, <&kp>;
+        };
+
+        // 長押し：閉じ括弧 / 短押し：開き括弧
+        td_bracket_hold: td_bracket_hold {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;
+            flavor = "tap-preferred";
+            bindings = <&kp>, <&kp>;
+        };
+
+        // C / Ctrl+C / なし
+        td_copy: td_copy {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
             tapping-term-ms = <200>;
-            display-name = "Custom Tap Dance";
-            bindings = <&mt LCTRL A>, <&kp B>;
+            display-name = "TD Copy";
+            bindings = <&td_no_hold 0 C>,
+                       <&kp LC(C)>;
+        };
+
+        // V / Ctrl+V / なし
+        td_paste: td_paste {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            tapping-term-ms = <200>;
+            display-name = "TD Paste";
+            bindings = <&td_no_hold 0 V>,
+                       <&kp LC(V)>;
+        };
+
+        // ( / ()＋左移動 / )
+        td_parentheses: td_parentheses {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            tapping-term-ms = <200>;
+            display-name = "TD Parentheses";
+            bindings = <&td_bracket_hold RPAR LPAR>,
+                       <&macro_parentheses>;
+        };
+
+        // [ / []＋左移動 / ]
+        td_brackets: td_brackets {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            tapping-term-ms = <200>;
+            display-name = "TD Brackets";
+            bindings = <&td_bracket_hold RBKT LBKT>,
+                       <&macro_brackets>;
+        };
+
+        // Ctrl+Home / Ctrl+End / なし
+        td_home_end: td_home_end {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            tapping-term-ms = <200>;
+            display-name = "TD Home End";
+            bindings = <&td_no_hold 0 LC(HOME)>,
+                       <&kp LC(END)>;
         };
     };
 
