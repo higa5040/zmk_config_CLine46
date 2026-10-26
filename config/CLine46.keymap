@@ -52,29 +52,35 @@
             bindings = <&kp LBKT &kp RBKT &kp LEFT>;
         };
 
-        // 拡大
-        zoom_in: zoom_in {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            display-name = "Zoom In";
-            wait-ms = <10>;
-            bindings =
-                <&macro_press &kp LCTRL>,
-                <&macro_tap &msc SCRL_UP>,
-                <&macro_release &kp LCTRL>;
-        };
+		// 拡大：Ctrl + ホイール上
+		zoom_in: zoom_in {
+		    compatible = "zmk,behavior-macro";
+		    #binding-cells = <0>;
+		    display-name = "Zoom In";
 
-        // 縮小
-        zoom_out: zoom_out {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            display-name = "Zoom Out";
-            wait-ms = <10>;
-            bindings =
-                <&macro_press &kp LCTRL>,
-                <&macro_tap &msc SCRL_DOWN>,
-                <&macro_release &kp LCTRL>;
-        };
+		    wait-ms = <150>;
+
+		    bindings =
+		        <&macro_press &kp LCTRL>,
+		        <&macro_press &msc SCRL_UP>,
+		        <&macro_release &msc SCRL_UP>,
+		        <&macro_release &kp LCTRL>;
+		};
+
+		// 縮小：Ctrl + ホイール下
+		zoom_out: zoom_out {
+		    compatible = "zmk,behavior-macro";
+		    #binding-cells = <0>;
+		    display-name = "Zoom Out";
+
+		    wait-ms = <150>;
+
+		    bindings =
+		        <&macro_press &kp LCTRL>,
+		        <&macro_press &msc SCRL_DOWN>,
+		        <&macro_release &msc SCRL_DOWN>,
+		        <&macro_release &kp LCTRL>;
+		};
     };
 
     behaviors {
