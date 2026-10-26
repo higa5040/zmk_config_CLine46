@@ -51,6 +51,30 @@
             tap-ms = <40>;
             bindings = <&kp LBKT &kp RBKT &kp LEFT>;
         };
+
+        // 拡大
+        zoom_in: zoom_in {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            display-name = "Zoom In";
+            wait-ms = <10>;
+            bindings =
+                <&macro_press &kp LCTRL>,
+                <&macro_tap &msc SCRL_UP>,
+                <&macro_release &kp LCTRL>;
+        };
+
+        // 縮小
+        zoom_out: zoom_out {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            display-name = "Zoom Out";
+            wait-ms = <10>;
+            bindings =
+                <&macro_press &kp LCTRL>,
+                <&macro_tap &msc SCRL_DOWN>,
+                <&macro_release &kp LCTRL>;
+        };
     };
 
     behaviors {
@@ -92,14 +116,17 @@
         };
 
         // V / Ctrl+V / なし
+
+        // V / Ctrl+V
         td_paste: td_paste {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
             tapping-term-ms = <200>;
             display-name = "TD Paste";
-            bindings = <&td_no_hold 0 V>,
+            bindings = <&kp V>,
                        <&kp LC(V)>;
         };
+
 
         // ( / ()＋左移動 / )
         td_parentheses: td_parentheses {
