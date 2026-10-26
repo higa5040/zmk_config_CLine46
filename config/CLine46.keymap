@@ -87,7 +87,7 @@
             #binding-cells = <0>;
             tapping-term-ms = <200>;
             display-name = "TD Copy";
-            bindings = <&td_no_hold 0 C>,
+            bindings = <&kp C>,
                        <&kp LC(C)>;
         };
 
