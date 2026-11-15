@@ -108,40 +108,6 @@
 
             bindings = <&mkp LCLK &mkp LCLK>;
         };
-
-        // 垂直スクロール
-        vertical_scroll: vertical_scroll {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            wait-ms = <10>;
-
-            bindings
-                = <&macro_press
-                    &mo SCROLL_LAYER
-                    &ysnap AXIS_SNAP_MODE_Y 10000>
-                , <&macro_pause_for_release>
-                , <&macro_release
-                    &ysnap AXIS_SNAP_MODE_Y 10000
-                    &mo SCROLL_LAYER>
-                ;
-        };
-
-        // 水平スクロール
-        horizontal_scroll: horizontal_scroll {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            wait-ms = <10>;
-
-            bindings
-                = <&macro_press
-                    &mo SCROLL_LAYER
-                    &xsnap AXIS_SNAP_MODE_X 10000>
-                , <&macro_pause_for_release>
-                , <&macro_release
-                    &xsnap AXIS_SNAP_MODE_X 10000
-                    &mo SCROLL_LAYER>
-                ;
-        };
     };
 
     behaviors {
